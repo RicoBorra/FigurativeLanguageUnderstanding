@@ -5,4 +5,5 @@ external_data/
 external_data_tidied/
 local/
 DREAM_training_dataset/
+DREAM-t5-small/
 **__pycache__/
