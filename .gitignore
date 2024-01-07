@@ -8,4 +8,5 @@ DREAM_training_dataset/
 DREAM-t5-small/
 **__pycache__/
 tests.ipynb
-dream_elaborations.csv
+*.csv
+system**

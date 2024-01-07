@@ -1,6 +1,46 @@
 from transformers import AutoTokenizer, AutoModelForSeq2SeqLM
-import numpy as np 
+import numpy as np
 
+def add_combined_cols(entry):
+    
+    premise = entry["premise"].strip()
+    hypothesis = entry["hypothesis"].strip()
+    
+    if not premise.endswith("."):
+        premise += "."
+    assert(premise.endswith("."))
+    if not hypothesis.endswith("."):
+        hypothesis += "."
+    assert(hypothesis.endswith("."))
+    
+    # Columns for System 1
+    entry["premise_hypothesis"] = 'Premise: ' + premise + ' Hypothesis: ' + hypothesis + ' Is there a contradiction or entailment between the premise and hypothesis ?'
+    entry["label_explanation"] = 'Label: ' + entry["label"] + '. Explanation: ' + entry["explanation"]
+
+    # Columns for System 2
+    entry["premise_hypothesis_system_2"] = 'Premise: ' + premise + ' Hypothesis: ' + hypothesis + ' What is the type of figurative language involved? Is there a contradiction or entailment between the premise and hypothesis ?'
+    entry["type_label_explanation"] = 'Type: ' + entry["type"] + '. Label: ' + entry["label"] + '. Explanation: ' + entry["explanation"]
+    
+    # Columns for Systems 3
+    for dream_dimension in ['emotion', 'motivation', 'consequence', 'rot'] :
+        entry["premise_hypothesis_" + dream_dimension] = 'Premise: ' + premise + ' [' + dream_dimension.capitalize() + '] ' + entry['premise_' + dream_dimension].strip() + \
+                    ' Hypothesis: ' + hypothesis + ' [' + dream_dimension.capitalize() + '] ' + entry['hypothesis_' + dream_dimension] + ' Is there a contradiction or entailment between the premise and hypothesis ?'
+    entry["premise_hypothesis_all_dims"] = 'Premise: ' + premise + \
+                ' [Emotion] ' + entry['premise_emotion'].strip() + \
+                ' [Motivation] ' + entry['premise_motivation'].strip() + \
+                ' [Consequence] ' + entry['premise_consequence'].strip() + \
+                ' [Rot] ' + entry['premise_rot'].strip() + \
+                ' Hypothesis: ' + hypothesis + \
+                ' [Emotion] ' + entry['hypothesis_emotion'].strip() + \
+                ' [Motivation] ' + entry['hypothesis_motivation'].strip() + \
+                ' [Consequence] ' + entry['hypothesis_consequence'].strip() + \
+                ' [Rot] ' + entry['hypothesis_rot'].strip()
+    
+    # Columns for System 4 (For the explanation part)
+    '''As the specific input isn't indicated in the paper, the question tries to formalize at best what is expected'''
+    entry["premise_hypothesis_label"] = 'Premise: ' + premise + ' Hypothesis: ' + hypothesis + ' Label : ' + entry['label'] + '. What is the explanation of the label associated to the premise and the hypothesis ?'
+    
+    return entry
 
 '''Class encapsulating the two steps of System 4 (Classify, then Explain)'''
 class DREAM_FLUTE_System4 :
