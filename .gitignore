@@ -9,4 +9,5 @@ DREAM-t5-small/
 **__pycache__/
 tests.ipynb
 *.csv
+*.tsv
 system**
