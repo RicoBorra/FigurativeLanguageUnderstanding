@@ -6,6 +6,7 @@ external_data_tidied/
 local/
 DREAM_training_dataset/
 DREAM-t5-small/
+T5-small-synthetic-FLUTE/
 **__pycache__/
 tests.ipynb
 *.csv
