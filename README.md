@@ -22,7 +22,7 @@ The fine-tuning of the T5-small model on this dataset is done in the file [dream
 
 Using the FLUTE dataset and the DREAM model, we were able to reproduce the ensemble described in the DREAM-FLUTE paper.
 
-Once again, we used T5-small models instead of T5-3B models as basis for all of the 8 systems involved in the ensemble. The creation of the dataset as well as the training of all models is achieved in the notebook [flute-dream-training.ipynb](flute-dream-training.ipynb).
+Once again, we used T5-small models instead of T5-3B models as basis for all of the 9 systems involved in the ensemble. The creation of the dataset as well as the training of all models is achieved in the notebook [flute-dream-training.ipynb](flute-dream-training.ipynb).
 
 The [flute_dream.py](flute_dream.py) script implements classes to handle both the Pipeline for the System 4 ("Classifiy then Explain") and the ensembling algorithm, that takes a majority vote on the 5 most accurate models for the labels, and picks the explanation of the first model that agrees with this label within a predetermined sequence.
 
