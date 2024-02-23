@@ -9,6 +9,4 @@ DREAM-t5-small/
 T5-small-synthetic-FLUTE/
 **__pycache__/
 tests.ipynb
-*.csv
-*.tsv
 system**
